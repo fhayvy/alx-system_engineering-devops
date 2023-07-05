@@ -7,3 +7,4 @@ mkdir - Make directory
 mv - move file
 rm - Delete file<br>
 rm -r - Delete directory
+cd - - Changes the working directory to the previous one
