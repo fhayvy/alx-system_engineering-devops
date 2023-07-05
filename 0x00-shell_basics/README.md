@@ -9,3 +9,4 @@ rm - Delete file<br>
 rm -r - Delete directory<br>
 cd - - Changes the working directory to the previous one<br>
 ls -a - lists all files including hidden ones<br>
+ls -la . .. /boot - Write a script that lists all files in the current directory and the parent of the working directory and the /boot directory<br>
