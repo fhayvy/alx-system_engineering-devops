@@ -1,2 +1,2 @@
 #!/bin/bash
--type d -exec chmod a+x {} 
+-type d -exec chmod a+x {} + 
