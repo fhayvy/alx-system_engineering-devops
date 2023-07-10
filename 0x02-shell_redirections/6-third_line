@@ -1,0 +1,2 @@
+#!/bin/bash
+head -n 3 sorted_file| tail -n 1
