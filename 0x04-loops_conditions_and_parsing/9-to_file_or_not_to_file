@@ -6,9 +6,9 @@ then
 
 	if test -s school;
 	then
-		echo "school file is empty"
-	else
 		echo "school file is not empty"
+	else
+		echo "school file is empty"
 	fi
 
 	if test -f school;
