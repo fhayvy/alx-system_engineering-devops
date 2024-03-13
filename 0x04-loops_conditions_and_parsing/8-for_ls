@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Bash script that displays in a list file
+#Where only the part of the name after the first dash is displayed
+my_list=$(ls)
+for i in $my_list;
+do
+	echo "$i" | cut -d '-' -f2
+done
