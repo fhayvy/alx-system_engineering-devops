@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #Bash Script that displays all active IPv4 IPs on a machine
 
-netstat -t4
+netstat -4
