@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#Bash script to install nginx on my server
+brew update
+brew install nginx
+sudo nginx
+sudo nginx -s status
