@@ -12,4 +12,3 @@ sudo sed -i '/listen 80 default_server;/a \    rewrite ^/redirect_me https://www
 #sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
-echo "Nginx installed successfully"
