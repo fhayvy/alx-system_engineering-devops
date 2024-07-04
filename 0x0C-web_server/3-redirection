@@ -6,7 +6,7 @@ sudo apt install nginx -y
 
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
 
-sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server;/a \    rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
 
 #To create a symbolic link between sites-available/default and sites-enabled/default
 #sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
