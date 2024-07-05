@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
-#Configure your Nginx server to have a custom 404 page
-#This custom page contains the string "Ceci n'est pas une page"
+# Bash script to install and configure Nginx on an Ubuntu server
 
-#Update Bash script and install Nginx
+# Update package list and install Nginx
 sudo apt update -y
-sudo apt install nginx -y
+sudo apt install -y nginx
 
+# Create a custom index page
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
 
+# Create a custom 404 error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
 
-sudo sed -i '/listen 80 default_server;/a \	rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
-sudo sed -i '/listen 80 default_server;/a \	error_page 404 /custom_404.html\n location = /custom_404.html; {\n	 internal;\n	}' /etc/nginx/sites-available/default
-#To create a symbolic link between sites-available/default and sites-enabled/default
-#sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# Add rewrite rule and custom 404 error page configuration to default server block
+sudo sed -i '/listen 80 default_server;/a \    rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
+sudo sed -i '/server_name _;/a \    error_page 404 /custom_404.html;\n    location = /custom_404.html {\n        internal;\n    }' /etc/nginx/sites-available/default
 
-sudo service nginx restart
+# Restart Nginx to apply changes
+sudo systemctl restart nginx
+
+# Confirm installation success
+echo "Nginx installed successfully"
