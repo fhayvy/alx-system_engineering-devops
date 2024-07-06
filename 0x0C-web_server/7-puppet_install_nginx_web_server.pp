@@ -26,12 +26,21 @@ server {
     server_name _;
 
     location / {
-        return 200 'Hello World!';
+	try_files \$uri \$uri/ =404;
+        #return 200 'Hello World!';
     }
 
     location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        return 301 https://www.google.com;
     }
+
+
+    error_page 404 /custom_404.html;
+    location = /custom_404.html {
+        root /var/www/html;
+        internal;
+    }
+
 }
   ",
   require => Package['nginx'],
