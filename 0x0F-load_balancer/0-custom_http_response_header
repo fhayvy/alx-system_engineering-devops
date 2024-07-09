@@ -21,6 +21,3 @@ sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-e
 
 # Restart Nginx to apply changes
 sudo service nginx restart
-
-# Confirm installation success
-echo "Nginx installed and configured successfully with custom header: X-Served-By: $HOSTNAME"
