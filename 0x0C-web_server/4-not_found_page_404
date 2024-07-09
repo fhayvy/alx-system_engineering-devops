@@ -3,7 +3,7 @@
 
 # Update package list and install Nginx
 sudo apt update -y
-sudo apt install -y nginx
+sudo apt install nginx -y
 
 # Create a custom index page
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
