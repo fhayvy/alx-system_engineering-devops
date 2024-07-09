@@ -1,22 +1,36 @@
 #!/usr/bin/env bash
+# redirects
+apt update -y
+apt install nginx  -y
+echo "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+sed -i "s/server_name _;/server_name _;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\tinternal;\n\t}\n/g" /etc/nginx/sites-available/default
+sed -i "s/server_name _;/server_name _;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/www.github.com\/imoleBytes;\n\t}\n/g" /etc/nginx/sites-available/default
+
+sudo service nginx restart
+
+
+
+#!/usr/bin/env bash
 # Bash script to install and configure Nginx on an Ubuntu server
 
 # Update package list and install Nginx
-sudo apt update -y
-sudo apt install nginx -y
+# sudo apt update -y
+# sudo apt install nginx -y
 
 # Create a custom index page
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+# echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
 
 # Create a custom 404 error page
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
+# echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
 
 # Add rewrite rule and custom 404 error page configuration to default server block
-sudo sed -i '/listen 80 default_server;/a \    rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
-sudo sed -i '/server_name _;/a \    error_page 404 /custom_404.html;\n    location = /custom_404.html {\n        internal;\n    }' /etc/nginx/sites-available/default
+# sudo sed -i '/listen 80 default_server;/a \    rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
+# sudo sed -i '/server_name _;/a \    error_page 404 /custom_404.html;\n    location = /custom_404.html {\n        internal;\n    }' /etc/nginx/sites-available/default
 
 # Restart Nginx to apply changes
-sudo systemctl restart nginx
+# sudo systemctl restart nginx
 
 # Confirm installation success
-echo "Nginx installed successfully"
+# echo "Nginx installed successfully"
