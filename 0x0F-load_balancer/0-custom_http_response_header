@@ -16,7 +16,7 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/n
 
 # Add rewrite rule and custom 404 error page configuration to default server block
 sed -i "s/server_name _;/server_name _;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\tinternal;\n\t}\n/g" /etc/nginx/sites-available/default
-sed -i "s/server_name _;/server_name _;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/www.github.com\/imoleBytes;\n\t}\n/g" /etc/nginx/sites-available/default
+sed -i "s/server_name _;/server_name _;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/www.google.com;\n\t}\n/g" /etc/nginx/sites-available/default
 sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOSTNAME\";\n/" /etc/nginx/nginx.conf
 
 # Restart Nginx to apply changes
