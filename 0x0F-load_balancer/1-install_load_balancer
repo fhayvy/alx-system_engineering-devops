@@ -2,10 +2,23 @@
 # Bash script to install and configure HAproxy on my server
 
 # Update and Install HAproxy
-sudo apt-get update -y
-sudo apt-get install haproxy -y
+sudo apt update -y
+sudo apt install haproxy -y
 
 # To enable HAproxy
-sudo systemctl enable haproxy
+echo "ENABLED=1" >> /etc/default/haproxy
+my_server_config=\
+"
+frontend haproxy-main
+	bind *:80
+	option forwardfor
+	default_backend nginx_servers
 
+backend nginx_servers
+	balance roundrobin
+	server 180142-web-01 18.235.234.22 check
+	server 180142-web-02 100.26.9.90 check
+"
+echo "$my_server_config" >> /etc/haproxy/haproxy.cfg
 
+service haproxy restart
