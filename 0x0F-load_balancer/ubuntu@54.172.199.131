@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Double the number of webservers
+
+# Update package list and install Nginx
+sudo apt update -y
+sudo apt install nginx -y
+
+# Get the hostname of the server
+HOSTNAME=$(hostname)
+
+# Create a custom index page
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+
+# Create a custom 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
+
+# Add rewrite rule and custom 404 error page configuration to default server block
+sed -i "s/server_name _;/server_name _;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\tinternal;\n\t}\n/g" /etc/nginx/sites-available/default
+sed -i "s/server_name _;/server_name _;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/www.google.com;\n\t}\n/g" /etc/nginx/sites-available/default
+sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOSTNAME\";\n/" /etc/nginx/nginx.conf
+
+# Restart Nginx to apply changes
+sudo service nginx restart
