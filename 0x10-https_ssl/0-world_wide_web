@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Bash script that will display information about subdomains
+
+# Usage: ./0-world_wide_web <domain> <subdomain>
+
+# funcion to find the information about a domain
+
+domain_INFO(){
+    line=$(dig "$2"."$1" | grep -A1 "ANSWER SECTION:" | tail -1)
+    record=$(echo "$line" | awk '{print $4}')
+    dest=$(echo "$line" | awk '{print $5}')
+    echo The subdomain "$2" is a "$record" record and points to "$dest"
+}
+
+if [ $# -eq 2 ]
+then
+domain_INFO "$1" "$2"
+elif [ $# -eq 1 ]
+then
+domain_INFO "$1" "www"
+domain_INFO "$1" "lb-01"
+domain_INFO "$1" "web-01"
+domain_INFO "$1" "web-02"
+fi
